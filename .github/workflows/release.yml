@@ -172,6 +172,11 @@ jobs:
       - build-windows
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.target }}
+
       - name: Download packages
         uses: actions/download-artifact@v8
         with:
