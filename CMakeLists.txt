@@ -79,14 +79,16 @@ if (LUAGENT_BUILD_TESTS)
         set_tests_properties(luagent_integration PROPERTIES
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         )
-        add_test(NAME luagent_client_daemon
-            COMMAND ${Python3_EXECUTABLE}
-                ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/run_client_daemon.py
-                $<TARGET_FILE:luagent>
-                ${CMAKE_CURRENT_SOURCE_DIR}/tools/client_daemon.py
-        )
-        set_tests_properties(luagent_client_daemon PROPERTIES
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        )
+        if (UNIX)
+            add_test(NAME luagent_client_daemon
+                COMMAND ${Python3_EXECUTABLE}
+                    ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/run_client_daemon.py
+                    $<TARGET_FILE:luagent>
+                    ${CMAKE_CURRENT_SOURCE_DIR}/tools/client_daemon.py
+            )
+            set_tests_properties(luagent_client_daemon PROPERTIES
+                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+            )
+        endif ()
     endif ()
 endif ()
