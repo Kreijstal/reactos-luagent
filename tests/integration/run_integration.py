@@ -345,7 +345,7 @@ def test_tool_run():
         frames = recv_until_exit(s, proc_id)
         stdout = b"".join(p for t, r, p in frames if t == 42)
         exit_info = kv([p for t, r, p in frames if t == 44][0])
-        expect(stdout == b"toolrun\n", "tool.run stdout mismatch")
+        expect(stdout.replace(b"\r\n", b"\n") == b"toolrun\n", "tool.run stdout mismatch")
         expect(exit_info["reason"] == "exit", "tool.run exit reason mismatch")
 
 
