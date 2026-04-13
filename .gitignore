@@ -1,0 +1,8 @@
+build/
+build-wine/
+*.exe
+*.dll
+*.log
+*.pid
+*.sock
+
