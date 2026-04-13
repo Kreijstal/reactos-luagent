@@ -143,8 +143,20 @@ jobs:
           cp tools/client_daemon.py "${root}/tools/"
           cp README.md "${root}/"
           cp docs/*.md "${root}/docs/"
-          cd dist
-          7z a "${pkg}.zip" "${pkg}" >/dev/null
+          python - <<'PY'
+          import pathlib
+          import zipfile
+
+          dist = pathlib.Path("dist")
+          pkg_name = "reactos-luagent-${{ inputs.tag }}-windows-ucrt64"
+          root = dist / pkg_name
+          archive = dist / f"{pkg_name}.zip"
+
+          with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+              for path in sorted(root.rglob("*")):
+                  if path.is_file():
+                      zf.write(path, path.relative_to(dist))
+          PY
 
       - name: Upload package
         uses: actions/upload-artifact@v7
