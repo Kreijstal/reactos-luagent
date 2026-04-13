@@ -36,7 +36,7 @@ jobs:
 
       - name: Upload test logs on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: linux-build-logs
           path: |
@@ -83,7 +83,7 @@ jobs:
 
       - name: Upload test logs on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: windows-msys2-test-logs
           path: |
@@ -101,7 +101,7 @@ jobs:
           cp /ucrt64/bin/lua54.dll artifacts/
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: windows-msys2-build
           path: artifacts/*
